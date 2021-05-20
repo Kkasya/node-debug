@@ -17,7 +17,7 @@ router.get('/all', (req, res) => {
                 })
             }
         )
-})
+});
 
 router.get('/:id', (req, res) => {
     Game.findOne({ where: { id: req.params.id, owner_id: req.user.id } })
@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
                 })
             }
         )
-})
+});
 
 router.post('/create', (req, res) => {
     Game.create({
@@ -57,7 +57,7 @@ router.post('/create', (req, res) => {
                 res.status(500).send(err.message)
             }
         )
-})
+});
 
 router.put('/update/:id', (req, res) => {
     Game.update({
@@ -88,7 +88,7 @@ router.put('/update/:id', (req, res) => {
             }
 
         )
-})
+});
 
 router.delete('/remove/:id', (req, res) => {
     Game.destroy({
@@ -111,6 +111,6 @@ router.delete('/remove/:id', (req, res) => {
             })
         }
     )
-})
+});
 
 module.exports = router;
