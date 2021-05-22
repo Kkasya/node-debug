@@ -1,17 +1,19 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../db').import('../models/user');
+const db = require('../db');
+const Sequelize = require('sequelize');
+const User = require('../models/user')(db, Sequelize);
 
 router.post('/signup', (req, res) => {
   User.create({
     full_name: req.body.user.full_name,
     username: req.body.user.username,
-    passwordhash: bcrypt.hashSync(req.body.user.password, 10),
+    passwordhash: bcrypt.hash(req.body.user.password, bcrypt.genSaltSync(10)),
     email: req.body.user.email,
-  })
-    .then(
+  }).then(
       function signupSuccess(user) {
+        console.log(user)
         let token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', { expiresIn: 60 * 60 * 24 });
         res.status(200).json({
           user: user,

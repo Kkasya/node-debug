@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
-const User = require('../db').import('../models/user');
+const db = require('../db');
+const User = db.import('user', require('../models/user'));
 
 module.exports = function (req, res, next) {
-  if (req.method == 'OPTIONS') {
+  if (req.method ==='OPTIONS') {
     next();   // allowing options as a method for request
   } else {
-    var sessionToken = req.headers.authorization;
+    const sessionToken = req.headers.authorization;
     console.log(sessionToken);
     if (!sessionToken) return res.status(403).send({ auth: false, message: "No token provided." });
     else {
