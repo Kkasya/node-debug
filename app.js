@@ -5,7 +5,7 @@ const db = require('./db');
 const user = require('./controllers/usercontroller');
 const game = require('./controllers/gamecontroller');
 const bodyParser = require('body-parser');
-db.sync();
+db.sync({force: true});
 
 app.use(bodyParser.urlencoded({
   extended: true
